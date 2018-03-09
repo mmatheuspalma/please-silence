@@ -8,6 +8,18 @@ body{
     max-width: 100%;
 }
 
+body::-moz-selection {
+    background: transparent;
+}
+
+body::selection {
+    background: transparent;
+}
+
+body::focus{
+    outline: none;
+}
+
 .content{
     background: #002f58;
     width: 100%;
@@ -17,7 +29,7 @@ body{
     justify-content: center;
     text-align: center;
     flex-direction: column;
-    transition: all 0.5s;
+    transition: background-color 0.8s;
 }
 
     /* microphone parts */
@@ -36,7 +48,7 @@ body{
         transition: .2s;
         z-index:  3;
     }
-        .microphone-container:hover, .microphone-container:hover > .microphone-support::after{
+        /*.microphone-container:hover, .microphone-container:hover > .microphone-support::after{
             background: #fff;
         }
 
@@ -46,21 +58,18 @@ body{
 
         .microphone-container:hover > .microphone-support{
             border-color: #FFCD33;
-        }
+        }*/
 
         /* active */
         .microphone-container.-active{
             background: #fff;
         }
-
         .microphone-container.-active > .microphone-support::after{
             background: #fff;
         }
-
         .microphone-container.-active > .microphone-voice, .microphone-container.-active > .microphone-base{
             background: #FFCD33;
         }
-
         .microphone-container.-active > .microphone-support{
             border-color: #FFCD33;
         }
@@ -73,7 +82,7 @@ body{
             position: absolute;
             z-index: 10;
             top: 23px;
-            box-shadow: 0 0 20px -5px #222;
+            box-shadow: 0 0 20px -5px rgba(34, 34, 34, 0.72);
         }
 
         .microphone-support{
@@ -84,7 +93,7 @@ body{
             position: relative;
             z-index: 3;
             top: -44px;
-            box-shadow: 0 0 20px -13px #222;
+            box-shadow: 0 0 20px -6px #222;
         }
             .microphone-support::after{
                 content: '';
@@ -100,13 +109,13 @@ body{
 
         .microphone-base{
             width: 19px;
-            height: 40px;
+            height: 31px;
             background: #ffffff;
             position: absolute;
-            z-index: 2;
+            z-index: 4;
             bottom: 25px;
             right: 114px;
-            box-shadow: 0 0 20px -5px #222;
+            box-shadow: 0 6px 20px -5px #222;
         }
 
     /* microfone volume */
@@ -117,42 +126,9 @@ body{
         height: 250px;
         min-height: 250px;
         border-radius: 100%;
-        background-color: rgba(0, 0, 0, 0.25);
+        background-color: rgba(0, 0, 0, 0.2);
         z-index: 1;
         transition: width 1s height 1s background-color 1s linear;
         -webkit-transition: width 1s height 1s background-color 1s linear;
         -moz-transition: width 1s height 1s background-color 1s linear;
-    }
-
-        .microphone-volume.animated{
-            animation: volume 3.5s infinite linear;
-            width: 300px;
-            height: 300px;
-        }
-
-    @keyframes volume {
-        0%{
-            width: 270px;
-            height: 270px;
-        }
-        20%{
-            width: 300px;
-            height: 300px;
-        }
-        40%{
-            width: 280px;
-            height: 280px;
-        }
-        60%{
-            width: 320px;
-            height: 320px;
-        }
-        80%{
-            width: 280px;
-            height: 280px;
-        }
-        100%{
-            width: 270px;
-            height: 270px;
-        }
     }
