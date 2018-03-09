@@ -17,6 +17,7 @@ body{
     justify-content: center;
     text-align: center;
     flex-direction: column;
+    transition: all 0.5s;
 }
 
     /* microphone parts */
@@ -72,6 +73,7 @@ body{
             position: absolute;
             z-index: 10;
             top: 23px;
+            box-shadow: 0 0 20px -5px #222;
         }
 
         .microphone-support{
@@ -80,8 +82,9 @@ body{
             border: 19px solid #ffffff;
             border-radius: 100px;
             position: relative;
-            z-index: 2;
+            z-index: 3;
             top: -44px;
+            box-shadow: 0 0 20px -13px #222;
         }
             .microphone-support::after{
                 content: '';
@@ -103,20 +106,22 @@ body{
             z-index: 2;
             bottom: 25px;
             right: 114px;
+            box-shadow: 0 0 20px -5px #222;
         }
 
     /* microfone volume */
     .microphone-volume{
         position: absolute;
-        width: 260px;
-        min-width: 260px;
-        height: 260px;
-        min-height: 260px;
+        width: 250px;
+        min-width: 250px;
+        height: 250px;
+        min-height: 250px;
         border-radius: 100%;
-        background: #052c4e;
+        background-color: rgba(0, 0, 0, 0.25);
         z-index: 1;
-        transition: width 0.5s height 0.5s;
-        -webkit-transition: width 0.5s height 0.5s;
+        transition: width 1s height 1s background-color 1s linear;
+        -webkit-transition: width 1s height 1s background-color 1s linear;
+        -moz-transition: width 1s height 1s background-color 1s linear;
     }
 
         .microphone-volume.animated{
