@@ -3,7 +3,6 @@ const effectMicrophone = document.querySelector('.microphone-volume');
 var volumeMeter = {
 
     createAudioMeter: function(audioContext, clipLevel, averaging, clipLag) {
-
         var processor = audioContext.createScriptProcessor(512);
         processor.onaudioprocess = volumeMeter.volumeAudioProcess;
         processor.clipping = false;
@@ -15,20 +14,10 @@ var volumeMeter = {
 
         processor.connect(audioContext.destination);
 
-        processor.checkClipping =
-            function() {
-                if (!this.clipping)
-                    return false;
-                if ((this.lastClip + this.clipLag) < window.performance.now())
-                    this.clipping = false;
-                return this.clipping;
-            };
-
-        processor.shutdown =
-            function() {
-                this.disconnect();
-                this.onaudioprocess = null;
-            };
+        processor.shutdown = function() {
+            this.disconnect();
+            this.onaudioprocess = null;
+        };
 
         return processor;
     },
@@ -39,7 +28,7 @@ var volumeMeter = {
         var sum = 0;
         var x;
 
-        for ( var i = 0; i < bufLength; i++ ) {
+        for (var i = 0; i < bufLength; i++) {
             x = buf[i];
 
             if ( Math.abs(x) >= this.clipLevel ) {
@@ -63,15 +52,12 @@ var volumeMeter = {
         effectMicrophone.style.width = volume + "px";
         effectMicrophone.style.height = volume + "px";
 
-        if( volume > 350 ) {
+        if(volume > 350) {
             // console.log('Áudio máximo alcançado...');
 
             document.querySelector('.content').style.background = '#c0392b';
-
         } else {
-
             document.querySelector('.content').style.background = '#002f58';
-
         }
 
         console.log(volume);
