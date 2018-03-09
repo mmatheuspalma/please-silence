@@ -3,6 +3,11 @@
     padding: 0;
 }
 
+body{
+    overflow: hidden;
+    max-width: 100%;
+}
+
 .content{
     background: #002f58;
     width: 100%;
