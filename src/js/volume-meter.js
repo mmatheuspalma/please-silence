@@ -31,7 +31,7 @@ var volumeMeter = {
         for (var i = 0; i < bufLength; i++) {
             x = buf[i];
 
-            if ( Math.abs(x) >= this.clipLevel ) {
+            if (Math.abs(x) >= this.clipLevel) {
                 this.clipping = true;
                 this.lastClip = window.performance.now();
             }
@@ -39,9 +39,9 @@ var volumeMeter = {
             sum += x * x;
         }
 
-        var rms =  Math.sqrt( sum / bufLength );
-        this.volume = Math.max( rms, this.volume * this.averaging );
-        let volumeInt = Math.round( this.volume * 100 );
+        var rms =  Math.sqrt(sum / bufLength);
+        this.volume = Math.max(rms, this.volume * this.averaging);
+        let volumeInt = Math.round(this.volume * 100);
 
         volumeMeter.updateEffectMicrophone(volumeInt);
     },

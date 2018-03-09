@@ -1,6 +1,5 @@
 var audioContext = null;
 var meter = null;
-var rafID = null;
 const $microphoneSwitcher = document.getElementById('microphone-switcher');
 
 window.onload = () => {
