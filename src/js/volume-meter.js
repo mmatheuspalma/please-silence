@@ -1,6 +1,9 @@
 const effectMicrophone = document.querySelector('.microphone-volume');
 
 var volumeMeter = {
+    capturedValues: [],
+    actualRound: 0,
+    average: 0,
 
     createAudioMeter: function(audioContext, clipLevel, averaging, clipLag) {
         var processor = audioContext.createScriptProcessor(512);
@@ -41,9 +44,24 @@ var volumeMeter = {
 
         var rms =  Math.sqrt(sum / bufLength);
         this.volume = Math.max(rms, this.volume * this.averaging);
+
+        // That value is user to calculate the average
         let volumeInt = Math.round(this.volume * 100);
 
+        if(volumeMeter.actualRound < 1000) {
+            volumeMeter.capturedValues[volumeMeter.actualRound] = volumeInt;
+            volumeMeter.actualRound++;
+            let sum = volumeMeter.capturedValues.reduce((a, b) => a + b);
+            volumeMeter.average = sum / volumeMeter.actualRound;
+
+            return;
+        }
+
         volumeMeter.updateEffectMicrophone(volumeInt);
+    },
+
+    calculateAverage: function() {
+
     },
 
     updateEffectMicrophone: function(volume) {
