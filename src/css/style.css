@@ -47,6 +47,23 @@ body{
             border-color: #FFCD33;
         }
 
+        /* active */
+        .microphone-container.-active{
+            background: #fff;
+        }
+
+        .microphone-container.-active > .microphone-support::after{
+            background: #fff;
+        }
+
+        .microphone-container.-active > .microphone-voice, .microphone-container.-active > .microphone-base{
+            background: #FFCD33;
+        }
+
+        .microphone-container.-active > .microphone-support{
+            border-color: #FFCD33;
+        }
+
         .microphone-voice{
             width: 58px;
             height: 130px;
@@ -92,11 +109,14 @@ body{
     .microphone-volume{
         position: absolute;
         width: 260px;
+        min-width: 260px;
         height: 260px;
-        border-radius: 200px;
+        min-height: 260px;
+        border-radius: 100%;
         background: #052c4e;
         z-index: 1;
-        transition: 2s;
+        transition: width 0.5s height 0.5s;
+        -webkit-transition: width 0.5s height 0.5s;
     }
 
         .microphone-volume.animated{

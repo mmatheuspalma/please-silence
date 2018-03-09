@@ -1,28 +1,23 @@
 var audioContext = null;
 var meter = null;
 var rafID = null;
+const $microphoneSwitcher = document.getElementById('microphone-switcher');
 
 window.onload = () => {
-    // grab microphone to turn on
-
-    var $microphoneSwitcher = document.getElementById('microphone-switcher');
 
     $microphoneSwitcher.addEventListener('click', (event) => {
-        // monkeypatch Web Audio
+
         window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
-        // grab an audio context
         audioContext = new AudioContext();
 
-        // Attempt to get audio input
         try {
-            // monkeypatch getUserMedia
+
             navigator.getUserMedia =
                 navigator.getUserMedia ||
                 navigator.webkitGetUserMedia ||
                 navigator.mozGetUserMedia;
 
-            // ask for an audio input
             navigator.getUserMedia(
             {
                 "audio": {
@@ -34,7 +29,9 @@ window.onload = () => {
                     },
                     "optional": []
                 },
+
             }, gotStream, didntGetStream);
+
         } catch (e) {
             alert('getUserMedia threw exception :' + e);
         }
@@ -42,14 +39,20 @@ window.onload = () => {
 }
 
 function didntGetStream() {
-    alert('Stream generation failed.');
+    alert('Aceite a permissão para a aplicação funcionar corretamente :D');
+
+    var microphoneActive = document.querySelectorAll('[class*=-active]');
+
+    for ( i = 0; i < microphoneActive.length; i++ ) {
+        microphoneActive[i].classList.remove('-active');
+    }
 }
 
 function gotStream(stream) {
-    // Create an AudioNode from the stream.
     mediaStreamSource = audioContext.createMediaStreamSource(stream);
 
-    // Create a new volume meter and connect it.
     meter = volumeMeter.createAudioMeter(audioContext);
     mediaStreamSource.connect(meter);
+
+    $microphoneSwitcher.classList.add('-active');
 }

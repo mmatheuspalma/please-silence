@@ -1,7 +1,9 @@
+const effectMicrophone = document.querySelector('.microphone-volume');
+
 var volumeMeter = {
     createAudioMeter: function(audioContext,clipLevel,averaging,clipLag) {
         var processor = audioContext.createScriptProcessor(512);
-        processor.onaudioprocess = this.volumeAudioProcess;
+        processor.onaudioprocess = volumeMeter.volumeAudioProcess;
         processor.clipping = false;
         processor.lastClip = 0;
         processor.volume = 0;
@@ -29,6 +31,13 @@ var volumeMeter = {
         return processor;
     },
 
+    updateEffectMicrophone: function(volume) {
+        volume = (260 + volume * 2.5) + "px";
+
+        effectMicrophone.style.width = volume;
+        effectMicrophone.style.height = volume;
+    },
+
     volumeAudioProcess: function(event) {
         var buf = event.inputBuffer.getChannelData(0);
         var bufLength = buf.length;
@@ -45,11 +54,9 @@ var volumeMeter = {
         }
 
         var rms =  Math.sqrt(sum / bufLength);
-
         this.volume = Math.max(rms, this.volume*this.averaging);
-
         let volumeInt = Math.floor(this.volume * 100);
 
-        console.log(volumeInt);
+        volumeMeter.updateEffectMicrophone(volumeInt);
     }
 }
