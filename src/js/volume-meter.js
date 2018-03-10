@@ -65,13 +65,9 @@ var volumeMeter = {
 
         if( volume > 350 ) {
             // console.log('Áudio máximo alcançado...');
-
             document.querySelector('.content').style.background = '#c0392b';
-
         } else {
-
             document.querySelector('.content').style.background = '#002f58';
-
         }
 
         console.log(volume);
