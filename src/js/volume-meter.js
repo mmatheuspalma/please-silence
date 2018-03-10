@@ -1,9 +1,11 @@
 const effectMicrophone = document.querySelector('.microphone-volume');
 
 var volumeMeter = {
+    capturedValues: [],
+    actualRound: 0,
+    average: 0,
 
     createAudioMeter: function(audioContext, clipLevel, averaging, clipLag) {
-
         var processor = audioContext.createScriptProcessor(512);
         processor.onaudioprocess = volumeMeter.volumeAudioProcess;
         processor.clipping = false;
@@ -15,20 +17,10 @@ var volumeMeter = {
 
         processor.connect(audioContext.destination);
 
-        processor.checkClipping =
-            function() {
-                if (!this.clipping)
-                    return false;
-                if ((this.lastClip + this.clipLag) < window.performance.now())
-                    this.clipping = false;
-                return this.clipping;
-            };
-
-        processor.shutdown =
-            function() {
-                this.disconnect();
-                this.onaudioprocess = null;
-            };
+        processor.shutdown = function() {
+            this.disconnect();
+            this.onaudioprocess = null;
+        };
 
         return processor;
     },
@@ -39,10 +31,10 @@ var volumeMeter = {
         var sum = 0;
         var x;
 
-        for ( var i = 0; i < bufLength; i++ ) {
+        for (var i = 0; i < bufLength; i++) {
             x = buf[i];
 
-            if ( Math.abs(x) >= this.clipLevel ) {
+            if (Math.abs(x) >= this.clipLevel) {
                 this.clipping = true;
                 this.lastClip = window.performance.now();
             }
@@ -50,11 +42,26 @@ var volumeMeter = {
             sum += x * x;
         }
 
-        var rms =  Math.sqrt( sum / bufLength );
-        this.volume = Math.max( rms, this.volume * this.averaging );
-        let volumeInt = Math.round( this.volume * 100 );
+        var rms =  Math.sqrt(sum / bufLength);
+        this.volume = Math.max(rms, this.volume * this.averaging);
+
+        // That value is user to calculate the average
+        let volumeInt = Math.round(this.volume * 100);
+
+        if(volumeMeter.actualRound < 1000) {
+            volumeMeter.capturedValues[volumeMeter.actualRound] = volumeInt;
+            volumeMeter.actualRound++;
+            let sum = volumeMeter.capturedValues.reduce((a, b) => a + b);
+            volumeMeter.average = sum / volumeMeter.actualRound;
+
+            return;
+        }
 
         volumeMeter.updateEffectMicrophone(volumeInt);
+    },
+
+    calculateAverage: function() {
+
     },
 
     updateEffectMicrophone: function(volume) {
@@ -63,7 +70,7 @@ var volumeMeter = {
         effectMicrophone.style.width = volume + "px";
         effectMicrophone.style.height = volume + "px";
 
-        if( volume > 350 ) {
+        if(volume > 350) {
             // console.log('Áudio máximo alcançado...');
             document.querySelector('.content').style.background = '#c0392b';
         } else {

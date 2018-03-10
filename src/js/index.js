@@ -1,25 +1,20 @@
 var audioContext = null;
 var meter = null;
-var rafID = null;
 const $microphoneSwitcher = document.getElementById('microphone-switcher');
 
 window.onload = () => {
-
     $microphoneSwitcher.addEventListener('click', (event) => {
-
         window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
         audioContext = new AudioContext();
 
         try {
-
             navigator.getUserMedia =
                 navigator.getUserMedia ||
                 navigator.webkitGetUserMedia ||
                 navigator.mozGetUserMedia;
 
-            navigator.getUserMedia(
-            {
+            navigator.getUserMedia({
                 "audio": {
                     "mandatory": {
                         "googEchoCancellation": "true",
@@ -29,7 +24,6 @@ window.onload = () => {
                     },
                     "optional": []
                 },
-
             }, gotStream, didntGetStream);
 
         } catch (e) {
