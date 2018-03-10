@@ -1,4 +1,4 @@
-const effectMicrophone = document.querySelector('.microphone-volume');
+const effectMicrophone = document.querySelector(".microphone-volume");
 
 var volumeMeter = {
     capturedValues: [],
@@ -49,12 +49,13 @@ var volumeMeter = {
         let volumeInt = Math.round(this.volume * 100);
 
         if(volumeMeter.actualRound < 1000) {
+
             volumeMeter.capturedValues[volumeMeter.actualRound] = volumeInt;
             volumeMeter.actualRound++;
             let sum = volumeMeter.capturedValues.reduce((a, b) => a + b);
             volumeMeter.average = sum / volumeMeter.actualRound;
 
-            return;
+            // return;
         }
 
         volumeMeter.updateEffectMicrophone(volumeInt);
@@ -70,11 +71,12 @@ var volumeMeter = {
         effectMicrophone.style.width = volume + "px";
         effectMicrophone.style.height = volume + "px";
 
-        if(volume > 350) {
-            // console.log('Áudio máximo alcançado...');
-            document.querySelector('.content').style.background = '#c0392b';
+        if( volume > 320 ) {
+            document.querySelector(".content").style.background = "#c0392b";
+
+            // TODO: alarme, alerta, api = dispara cada vez q passa o máximo
         } else {
-            document.querySelector('.content').style.background = '#002f58';
+            document.querySelector(".content").style.background = "#002f58";
         }
 
         console.log(volume);
