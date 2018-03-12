@@ -4,6 +4,7 @@ var volumeMeter = {
     capturedValues: [],
     actualRound: 0,
     average: 0,
+    startTime: {},
 
     createAudioMeter: function(audioContext, clipLevel, averaging, clipLag) {
         var processor = audioContext.createScriptProcessor(512);
@@ -45,40 +46,36 @@ var volumeMeter = {
         var rms =  Math.sqrt(sum / bufLength);
         this.volume = Math.max(rms, this.volume * this.averaging);
 
-        // That value is user to calculate the average
+        // That value is used to calculate the average
         let volumeInt = Math.round(this.volume * 100);
 
         if(volumeMeter.actualRound < 1000) {
+            volumeMeter.addToAverageAndCalculate(volumeInt);
 
-            volumeMeter.capturedValues[volumeMeter.actualRound] = volumeInt;
-            volumeMeter.actualRound++;
-            let sum = volumeMeter.capturedValues.reduce((a, b) => a + b);
-            volumeMeter.average = sum / volumeMeter.actualRound;
-
-            // return;
+            return;
         }
 
         volumeMeter.updateEffectMicrophone(volumeInt);
     },
 
-    calculateAverage: function() {
-
+    addToAverageAndCalculate: function(volume) {
+        volumeMeter.capturedValues[volumeMeter.actualRound] = volume;
+        volumeMeter.actualRound++;
+        let sum = volumeMeter.capturedValues.reduce((a, b) => a + b);
+        volumeMeter.average = sum / volumeMeter.actualRound;
     },
 
     updateEffectMicrophone: function(volume) {
-        volume = Math.round(260 + volume * 2.5);
+        effectSize = Math.round(260 + volume * 2.5);
 
-        $effectMicrophone.style.width = volume + "px";
-        $effectMicrophone.style.height = volume + "px";
+        $effectMicrophone.style.width = effectSize + "px";
+        $effectMicrophone.style.height = effectSize + "px";
 
-        if( volume > 320 ) {
-            document.querySelector(".content").style.background = "#c0392b";
-
+        if(volume > (volumeMeter.average * 1.90)) {
             // TODO: alarme, alerta, api = dispara cada vez q passa o máximo
+            document.querySelector(".content").style.background = "#c0392b";
         } else {
             document.querySelector(".content").style.background = "#002f58";
         }
-
-        // console.log(volume);
     }
 }
