@@ -1,11 +1,9 @@
 var audioContext = null;
 var meter = null;
-const $microphoneSwitcher = document.getElementById('microphone-switcher');
+const $microphoneSwitcher = document.getElementById("microphone-switcher");
 
 window.onload = () => {
-    $microphoneSwitcher.addEventListener('click', (event) => {
-        window.AudioContext = window.AudioContext || window.webkitAudioContext;
-
+    $microphoneSwitcher.addEventListener("click", (event) => {
         audioContext = new AudioContext();
 
         try {
@@ -33,20 +31,20 @@ window.onload = () => {
 }
 
 function didntGetStream() {
-    alert('Aceite a permissão para a aplicação funcionar corretamente :D');
+    console.log('Permissão bloqueada para o microfone.');
 
-    var microphoneActive = document.querySelectorAll('[class*=-active]');
-
-    for ( i = 0; i < microphoneActive.length; i++ ) {
-        microphoneActive[i].classList.remove('-active');
+    if ( $microphoneSwitcher.classList.contains("-active") ) {
+        $microphoneSwitcher.classList.remove("-active");
     }
 }
 
 function gotStream(stream) {
+    console.log('Permissão concedida para o microfone.');
+
     mediaStreamSource = audioContext.createMediaStreamSource(stream);
 
     meter = volumeMeter.createAudioMeter(audioContext);
     mediaStreamSource.connect(meter);
 
-    $microphoneSwitcher.classList.add('-active');
+    $microphoneSwitcher.classList.add("-active");
 }

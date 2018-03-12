@@ -1,4 +1,4 @@
-const effectMicrophone = document.querySelector(".microphone-volume");
+const $effectMicrophone = document.querySelector(".microphone-volume");
 
 var volumeMeter = {
     capturedValues: [],
@@ -31,10 +31,10 @@ var volumeMeter = {
         var sum = 0;
         var x;
 
-        for (var i = 0; i < bufLength; i++) {
+        for ( var i = 0; i < bufLength; i++ ) {
             x = buf[i];
 
-            if (Math.abs(x) >= this.clipLevel) {
+            if ( Math.abs(x) >= this.clipLevel ) {
                 this.clipping = true;
                 this.lastClip = window.performance.now();
             }
@@ -68,8 +68,8 @@ var volumeMeter = {
     updateEffectMicrophone: function(volume) {
         volume = Math.round(260 + volume * 2.5);
 
-        effectMicrophone.style.width = volume + "px";
-        effectMicrophone.style.height = volume + "px";
+        $effectMicrophone.style.width = volume + "px";
+        $effectMicrophone.style.height = volume + "px";
 
         if( volume > 320 ) {
             document.querySelector(".content").style.background = "#c0392b";
@@ -79,6 +79,6 @@ var volumeMeter = {
             document.querySelector(".content").style.background = "#002f58";
         }
 
-        console.log(volume);
+        // console.log(volume);
     }
 }

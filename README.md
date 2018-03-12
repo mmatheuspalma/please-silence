@@ -1,3 +1,3 @@
 # Silence please!!!
 
-### Aplicação simples para colaborar com o controle do barulho dentro do escritório.
+### Simple application to collaborate with collective silence.

@@ -8,22 +8,11 @@ body::focus{ outline: none; }
     background: #002f58;
     width: 100%;
     height: 100vh;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-transition: background-color 0.8s;
-    -o-transition: background-color 0.8s;
+    flex-direction: column;
     transition: background-color 0.8s;
 }
 
@@ -34,23 +23,12 @@ body::focus{ outline: none; }
     background: #FFCD33;
     border-radius: 250px;
     position: absolute;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     overflow: hidden;
     cursor: pointer;
-    -webkit-transition: .2s;
-    -o-transition: .2s;
     transition: .2s;
     z-index:  3;
 }
@@ -63,8 +41,7 @@ body::focus{ outline: none; }
         position: absolute;
         z-index: 10;
         top: 23px;
-        -webkit-box-shadow: 0 0 20px -5px rgba(34, 34, 34, 0.72);
-                box-shadow: 0 0 20px -5px rgba(34, 34, 34, 0.72);
+        box-shadow: 0 0 20px -5px rgba(34, 34, 34, 0.72);
     }
 
     .microphone-support{
@@ -75,8 +52,7 @@ body::focus{ outline: none; }
         position: relative;
         z-index: 3;
         top: -44px;
-        -webkit-box-shadow: 0 0 20px -6px #222;
-                box-shadow: 0 0 20px -6px #222;
+        box-shadow: 0 0 20px -6px #222;
     }
         .microphone-support:after{
             content: '';
@@ -87,8 +63,6 @@ body::focus{ outline: none; }
             left: -45px;
             background: #FFCD33;
             display: block;
-            -webkit-transition: .2s;
-            -o-transition: .2s;
             transition: .2s;
         }
 
@@ -100,8 +74,7 @@ body::focus{ outline: none; }
         z-index: 4;
         bottom: 25px;
         right: 114px;
-        -webkit-box-shadow: 0 6px 20px -5px #222;
-                box-shadow: 0 6px 20px -5px #222;
+        box-shadow: 0 6px 20px -5px #222;
     }
 
 /* microfone volume */
@@ -114,7 +87,6 @@ body::focus{ outline: none; }
     border-radius: 100%;
     background-color: rgba(0, 0, 0, 0.2);
     z-index: 1;
-    -o-transition: width 1s height 1s background-color 1s linear;
     transition: width 1s height 1s background-color 1s linear;
     -webkit-transition: width 1s height 1s background-color 1s linear;
     -moz-transition: width 1s height 1s background-color 1s linear;
