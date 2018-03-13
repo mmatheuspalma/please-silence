@@ -1,5 +1,6 @@
 var audioContext = null;
 var meter = null;
+var mediaStreamSource = null;
 const $microphoneSwitcher = document.getElementById("microphone-switcher");
 
 window.onload = () => {
@@ -33,9 +34,16 @@ window.onload = () => {
 function didntGetStream() {
     console.log('Permissão bloqueada para o microfone.');
 
+    meter.shutdown();
+
     if ( $microphoneSwitcher.classList.contains("-active") ) {
         $microphoneSwitcher.classList.remove("-active");
     }
+
+    var $effectMicrophone = document.querySelector(".microphone-volume");
+    $effectMicrophone.style.width = 0 + "px";
+    $effectMicrophone.style.height = 0 + "px";
+    document.querySelector(".content").style.background = "#002f58";
 }
 
 function gotStream(stream) {
