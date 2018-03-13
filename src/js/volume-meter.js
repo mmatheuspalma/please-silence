@@ -71,8 +71,11 @@ var volumeMeter = {
         $effectMicrophone.style.width = effectSize + "px";
         $effectMicrophone.style.height = effectSize + "px";
 
-        if(volume > (volumeMeter.average * 1.90)) {
+        if(volume > (volumeMeter.average * 2.5)) {
             // TODO: alarme, alerta, api = dispara cada vez q passa o máximo
+
+            document.querySelector("#alarm-element").play();
+
             document.querySelector(".content").style.background = "#c0392b";
         } else {
             document.querySelector(".content").style.background = "#002f58";
